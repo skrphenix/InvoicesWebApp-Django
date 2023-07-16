@@ -16,7 +16,7 @@ def create_invoice(json: _T):
         base_url + "create",
         json=json
     )
-    return resp.status_code, resp.json()
+    return resp
 
 
 def invoices():
@@ -25,7 +25,7 @@ def invoices():
     """
 
     resp = requests.get(base_url)
-    return resp.status_code, resp.json()
+    return resp
 
 
 def get_invoice(invoice_no: str):
@@ -36,7 +36,7 @@ def get_invoice(invoice_no: str):
     resp = requests.get(
         base_url + "{}/".format(invoice_no)
     )
-    return resp.status_code, resp.json()
+    return resp
 
 
 # Update a Invoice
@@ -49,7 +49,7 @@ def update_invoice(invoice_no: str, json: _T):
         base_url + "update/{}/".format(invoice_no),
         json=json
     )
-    return resp.status_code, resp.json()
+    return resp
 
 
 def delete_invoice(invoice_no: str):
@@ -60,12 +60,12 @@ def delete_invoice(invoice_no: str):
     resp = requests.delete(
         base_url + "delete/{}/".format(invoice_no)
     )
-    return resp.status_code, resp.json()
+    return resp
 
 
 class APITestCases(unittest.TestCase):
     def test_create_invoice(self):
-        status_code, resp = create_invoice(
+        resp = create_invoice(
             {
                 "details": [
                     {
@@ -81,23 +81,23 @@ class APITestCases(unittest.TestCase):
             }
         )
 
-        self.assertEqual(status_code, 200)
-        print(status_code, resp)
+        self.assertTrue(resp.ok)
+        print(resp.status_code, resp)
 
     def test_invoices(self):
-        status_code, resp = invoices()
+        resp = invoices()
 
-        self.assertEqual(status_code, 200)
-        print(status_code, resp)
+        self.assertTrue(resp.ok)
+        print(resp.status_code, resp)
 
     def test_get_invoice(self):
-        status_code, resp = get_invoice("no1")
+        resp = get_invoice("no1")
 
-        self.assertEqual(status_code, 200)
-        print(status_code, resp)
+        self.assertTrue(resp.ok)
+        print(resp.status_code, resp)
 
     def test_update_invoice(self):
-        status_code, resp = update_invoice(
+        resp = update_invoice(
             "no1",
             {
                 "details": [
@@ -114,14 +114,14 @@ class APITestCases(unittest.TestCase):
             }
         )
 
-        self.assertEqual(status_code, 200)
-        print(status_code, resp)
+        self.assertTrue(resp.ok)
+        print(resp.status_code, resp)
 
     def test_delete_invoice(self):
-        status_code, resp = delete_invoice("no1")
+        resp = delete_invoice("no1")
 
-        self.assertEqual(status_code, 200)
-        print(status_code, resp)
+        self.assertTrue(resp.ok)
+        print(resp.status_code, resp)
 
 
 if __name__ == '__main__':
