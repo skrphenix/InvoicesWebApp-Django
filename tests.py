@@ -82,19 +82,19 @@ class APITestCases(unittest.TestCase):
         )
 
         self.assertTrue(resp.ok)
-        print(resp.status_code, resp)
+        print(resp.status_code, resp.json())
 
     def test_invoices(self):
         resp = invoices()
 
         self.assertTrue(resp.ok)
-        print(resp.status_code, resp)
+        print(resp.status_code, resp.json())
 
     def test_get_invoice(self):
         resp = get_invoice("no1")
 
         self.assertTrue(resp.ok)
-        print(resp.status_code, resp)
+        print(resp.status_code, resp.json())
 
     def test_update_invoice(self):
         resp = update_invoice(
@@ -115,13 +115,13 @@ class APITestCases(unittest.TestCase):
         )
 
         self.assertTrue(resp.ok)
-        print(resp.status_code, resp)
+        print(resp.status_code, resp.json())
 
     def test_delete_invoice(self):
         resp = delete_invoice("no1")
 
         self.assertTrue(resp.ok)
-        print(resp.status_code, resp)
+        print(resp.status_code, resp.json())
 
 
 if __name__ == '__main__':
